@@ -2,12 +2,15 @@ package developerHere;
 
 import org.testng.annotations.Test;
 import tests.Authentication;
+import tests.Env;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 
 public class GetLocation {
     Authentication bearer = new Authentication();
+    Env baseUrl = new Env();
 
     @Test
     public void getValidAddress(){
@@ -15,7 +18,7 @@ public class GetLocation {
                "Authorization",
                "Bearer " +  bearer.getToken()).
                queryParam("q", "Friedrich-Schmidt-Platz 1, 1010 Wien").
-               when().get("https://geocode.search.hereapi.com/v1/geocode").
+               when().get(baseUrl.developerHereUrl()).
                then().statusCode(200).
                         body("items[0].address.countryName", equalTo("Österreich")).
                         body("items[0].address.city", equalTo("Wien")).
@@ -31,7 +34,7 @@ public class GetLocation {
                 "Authorization",
                 "Bearer " +  bearer.getToken()).
                 queryParam("q", "Wiener Riesenrad+Riesenradplatz+1020 Wien+ Österreich").
-                when().get("https://geocode.search.hereapi.com/v1/geocode").
+                when().get(baseUrl.developerHereUrl()).
                 then().statusCode(200).
                 body("items[0].address.countryName", equalTo("Österreich")).
                 body("items[0].address.city", equalTo("Wien")).
@@ -49,7 +52,7 @@ public class GetLocation {
                 "Bearer " +  bearer.getToken()).
                 queryParam("q", "Riesenradplatz").
                 queryParam("at", "48.21778,16.39463").
-                when().get("https://geocode.search.hereapi.com/v1/geocode").
+                when().get(baseUrl.developerHereUrl()).
                 then().statusCode(200).
                 body("items[0].address.countryName", equalTo("Österreich")).
                 body("items[0].address.city", equalTo("Wien")).

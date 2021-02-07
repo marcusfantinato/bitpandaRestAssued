@@ -6,9 +6,13 @@ package tests;
 public class Env {
 
     public static String freeApiUrl(){
-        //baseURI = "https://account.api.here.com";
         String freeApiUrl = "https://reqres.in";
         return freeApiUrl;
+    }
+
+    public static String developerHereUrl(){
+        String developerHereUrl = "https://geocode.search.hereapi.com/v1/geocode";
+        return developerHereUrl;
     }
 
 }
